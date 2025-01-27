@@ -30,9 +30,8 @@ RUN pip install --upgrade pip && \
     pip install -r /tmp/requirements.txt && \
     rm /tmp/requirements.txt
 
-# PyTorchとCUDAのインストール
-RUN pip install --no-cache-dir torch==2.5.0 torchvision==0.20.0 torchaudio==2.5.0 pytorch-cuda==12.1 \
-    -c pytorch -c nvidia
+# CUDA 12.1
+RUN pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
 
 # Stage 2: Final stage
 # Stage 1でビルドした依存関係をCOPYで最終イメージに持ってきて、不要な開発ツールやキャッシュなどを排除します。
