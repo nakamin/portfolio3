@@ -11,7 +11,7 @@ keras==2.15.0
 tensorboard==2.14.0
 torch==2.4.1
 torchaudio==2.4.1
-torchvision==0.20.1
+torchvision== 0.19.1
 torchsummary==1.5.1
 visdom==0.2.4
 medmnist==3.0.2
