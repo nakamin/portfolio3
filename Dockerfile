@@ -8,7 +8,7 @@ USER root
 # システムパッケージの更新と必要なパッケージのインストール
 RUN apt-get update && apt -y upgrade && \
     apt-get install -y \
-    curl build-essential gcc libpq-dev && \  # PostgreSQL関連パッケージを追加
+    curl build-essential gcc libpq-dev && \ 
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
