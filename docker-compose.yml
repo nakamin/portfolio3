@@ -1,5 +1,6 @@
 services:
   gpu-container:
+    container_name: portfolio3-gpu-container
     build:
       context: .
       dockerfile: Dockerfile
