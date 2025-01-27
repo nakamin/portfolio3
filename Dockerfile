@@ -1,6 +1,6 @@
 # Stage 1: Build stage
 # ベースイメージを指定
-FROM jupyter/base-notebook:python-3.11 AS builder
+FROM nvidia/cuda:12.6.3-base-ubuntu20.04 AS builder
 
 # rootユーザーに切り替え
 USER root
@@ -11,7 +11,10 @@ RUN apt-get update && apt -y upgrade && \
     curl \
     build-essential \
     gcc \
-    libpq-dev && \
+    libpq-dev \
+    python3 \
+    python3-pip \
+    python3-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -23,9 +26,12 @@ RUN pip install --upgrade pip && \
     pip install -r /tmp/requirements.txt && \
     rm /tmp/requirements.txt
 
+# PyTorchとCUDAのインストール
+RUN pip install --no-cache-dir torch torchvision torchaudio pytorch-cuda==12.6 -c pytorch -c nvidia
+
 # Stage 2: Final stage
 # Stage 1でビルドした依存関係をCOPYで最終イメージに持ってきて、不要な開発ツールやキャッシュなどを排除します。
-FROM jupyter/base-notebook:python-3.11
+FROM nvidia/cuda:12.6.3-base-ubuntu20.04
 
 # rootユーザーに切り替え
 USER root
