@@ -1,0 +1,53 @@
+services:
+  jupyter:
+    image: jupyter/base-notebook:python-3.11
+    container_name: portfolio3-jupyter
+    ports:
+      - "8889:8888"  # JupyterLab
+    # Docker コンテナとホストマシン（ローカルPC）の間でディレクトリを共有する設定
+    volumes:
+      - ./notebooks:/home/jovyan/work/notebooks # /home/jovyan/work/notebooksはコンテナ側のパス
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    restart: unless-stopped 
+    command: >
+      jupyter lab --ip=0.0.0.0 --no-browser --NotebookApp.token='' --NotebookApp.password=''
+
+  postgres:
+    image: postgres:17-bullseye
+    container_name: portfolio3-postgres
+    environment:
+      POSTGRES_USER: optuna_user
+      POSTGRES_PASSWORD: optuna_password
+      POSTGRES_DB: optuna_db
+    ports:
+      - "5400:5432" # PostgreSQLのポート
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: portfolio3-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: omuomu8ikd@gmail.com  # pgAdmin のログイン用メールアドレス
+      PGADMIN_DEFAULT_PASSWORD: admin          # pgAdmin のログイン用パスワード
+    ports:
+      - "8080:80"  # 外部ポート 8080 -> 内部ポート 80
+    depends_on:
+      - postgres
+    restart: always
+  
+  optuna_dashboard:
+    image: ghcr.io/optuna/optuna-dashboard
+    container_name: portfolio3-optuna_dashboard
+    ports:
+      - "8081:8080"  # 外部ポート8081を内部ポート8080にマッピング
+    command: >
+      postgresql+psycopg2://optuna_user:optuna_password@portfolio3-postgres:5432/optuna_db
+    depends_on:
+      - postgres
+    restart: always
+
+volumes:
+  postgres_data:
