@@ -6,9 +6,8 @@ FROM jupyter/base-notebook:python-3.11 AS builder
 USER root
 
 # システムパッケージの更新と必要なパッケージのインストール
-RUN apt-get update && apt -y upgrade && \
-    apt-get install -y \
-    curl build-essential gcc libpq-dev && \ 
+RUN apt-get update && \
+    apt-get install -y libpq-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
