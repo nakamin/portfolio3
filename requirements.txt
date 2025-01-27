@@ -9,8 +9,8 @@ tqdm==4.66.5
 tensorflow==2.13.1
 keras==2.15.0
 tensorboard==2.14.0
-torch==2.5.1
-torchaudio==2.5.1
+torch==2.4.1
+torchaudio==2.4.1
 torchvision==0.20.1
 torchsummary==1.5.1
 visdom==0.2.4
