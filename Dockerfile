@@ -31,7 +31,7 @@ RUN pip install --upgrade pip && \
     rm /tmp/requirements.txt
 
 # PyTorchとCUDAのインストール
-RUN pip install --no-cache-dir torch torchvision torchaudio pytorch-cuda==12.1 \
+RUN pip install --no-cache-dir torch==2.4.1 torchvision==0.16.1 torchaudio==2.4.1 \
     --index-url https://download.pytorch.org/whl/cu121
 
 # Stage 2: Final stage
