@@ -58,6 +58,9 @@ RUN mkdir -p /home/jovyan/work && chown -R $NB_UID:$NB_GID /home/jovyan/work
 # 必要に応じてJupyterのポートを開放
 EXPOSE 8888
 
+# JupyterLabの起動コマンドを設定
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+
 # デフォルトのユーザーに戻す
 USER $NB_UID
 
