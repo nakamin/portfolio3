@@ -5,6 +5,10 @@ FROM nvidia/cuda:12.6.3-base-ubuntu20.04 AS builder
 # rootユーザーに切り替え
 USER root
 
+# 環境変数を定義
+ENV NB_UID=1000
+ENV NB_GID=100
+
 # システムパッケージの更新と必要なパッケージのインストール
 RUN apt-get update && apt -y upgrade && \
     apt-get install -y \
@@ -36,10 +40,14 @@ FROM nvidia/cuda:12.6.3-base-ubuntu20.04
 # rootユーザーに切り替え
 USER root
 
+# 環境変数を再定義
+ENV NB_UID=1000
+ENV NB_GID=100
+
 # Stage 1 から必要なファイルをコピー
 COPY --from=builder /opt/conda /opt/conda
 
-# 作業ディレクトリの作成と所有権の付与
+# 作業ディレクトリの作成と権限設定
 RUN mkdir -p /home/jovyan/work && chown -R $NB_UID:$NB_GID /home/jovyan/work
 
 # 必要に応じてJupyterのポートを開放
