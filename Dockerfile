@@ -6,7 +6,11 @@ FROM jupyter/base-notebook:python-3.11 AS builder
 USER root
 
 # システムパッケージの更新と必要なパッケージのインストール
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt -y upgrade && \
+    apt-get install -y \
+    curl \
+    build-essential \
+    gcc \
     libpq-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -15,8 +19,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt /tmp/requirements.txt
 
 # Pythonパッケージのインストール（TA-Libはcondaでインストールしているためrequirements.txtから削除）
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r /tmp/requirements.txt && \
+RUN pip install --upgrade pip && \
+    pip install -r /tmp/requirements.txt && \
     rm /tmp/requirements.txt
 
 # Stage 2: Final stage
