@@ -45,7 +45,8 @@ ENV NB_UID=1000
 ENV NB_GID=100
 
 # Stage 1 から必要なファイルをコピー
-COPY --from=builder /opt/conda /opt/conda
+# nvidia/cuda ベースには conda が含まれていない
+# COPY --from=builder /opt/conda /opt/conda
 
 # 作業ディレクトリの作成と権限設定
 RUN mkdir -p /home/jovyan/work && chown -R $NB_UID:$NB_GID /home/jovyan/work
