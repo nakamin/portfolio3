@@ -1,6 +1,8 @@
 services:
   jupyter:
-    image: jupyter/base-notebook:python-3.11
+    build:  # Dockerfile を利用する設定を追加
+      context: .
+      dockerfile: Dockerfile
     container_name: portfolio3-jupyter
     ports:
       - "8889:8888"  # JupyterLab
