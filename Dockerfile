@@ -22,6 +22,10 @@ RUN apt-get update && apt -y upgrade && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# JupyterLabのインストール
+RUN pip install --upgrade pip && \
+    pip install jupyterlab
+
 # requirements.txtをコピー
 COPY requirements.txt /tmp/requirements.txt
 
@@ -29,10 +33,6 @@ COPY requirements.txt /tmp/requirements.txt
 RUN pip install --upgrade pip && \
     pip install -r /tmp/requirements.txt && \
     rm /tmp/requirements.txt
-
-# JupyterLabのインストール
-RUN pip install --upgrade pip && \
-    pip install jupyterlab
 
 # CUDA 12.1
 RUN pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
