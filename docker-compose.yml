@@ -14,6 +14,7 @@ services:
       - "8890:8888"  # JupyterLab (GPU対応)
     volumes:
       - ./work:/home/jovyan/work  # ローカル作業用ディレクトリ
+    command: sh -c 'jupyter-lab --allow-root --ip=*'
     networks:
       - portfolio-network
 
