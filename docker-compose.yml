@@ -1,4 +1,21 @@
 services:
+  gpu-container:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    stdin_open: true
+    tty: true
+    ports:
+      - "8890:8888"  # JupyterLab (GPU対応)
+    volumes:
+      - ./work:/home/jovyan/work  # ローカル作業用ディレクトリ
+    networks:
+      - portfolio-network
+
   jupyter:
     build:  # Dockerfile を利用する設定を追加
       context: .
