@@ -39,7 +39,7 @@ RUN pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url h
 
 # 必要なディレクトリを作成
 RUN mkdir -p $HOME/.local/share/jupyter && \
-    mkdir -p $HOME/work && \
+    mkdir -p $HOME/notebooks && \
     chown -R $NB_UID:$NB_GID $HOME
 
 # Stage 2: Final stage
@@ -61,7 +61,7 @@ COPY --from=builder /usr /usr
 COPY --from=builder $HOME $HOME
 
 # 作業ディレクトリの作成と権限設定
-RUN mkdir -p /home/jovyan/work && chown -R $NB_UID:$NB_GID /home/jovyan/work
+RUN mkdir -p /home/jovyan/notebooks && chown -R $NB_UID:$NB_GID /home/jovyan/notebooks
 RUN mkdir -p /home/jovyan/.local/share/jupyter/runtime && \
     chown -R $NB_UID:$NB_GID /home/jovyan/.local
 
@@ -72,7 +72,7 @@ EXPOSE 8888
 USER $NB_UID
 
 # 作業ディレクトリを設定
-WORKDIR /home/jovyan/work
+WORKDIR /home/jovyan/notebooks
 
 # JupyterLabの起動コマンドを設定
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
