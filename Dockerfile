@@ -1,6 +1,6 @@
 # Stage 1: Build stage
 # ベースイメージを指定
-FROM nvidia/cuda:12.6.3-base-ubuntu20.04 AS builder
+FROM nvidia/cuda:12.1.1-base-ubuntu20.04 AS builder
 
 # rootユーザーに切り替え
 USER root
@@ -22,9 +22,6 @@ RUN apt-get update && apt -y upgrade && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# JupyterLabのインストール
-RUN pip install jupyterlab
-
 # requirements.txtをコピー
 COPY requirements.txt /tmp/requirements.txt
 
@@ -34,11 +31,11 @@ RUN pip install --upgrade pip && \
     rm /tmp/requirements.txt
 
 # CUDA 12.1
-RUN pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
+RUN pip install jupyterlab torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
 
 # Stage 2: Final stage
 # Stage 1でビルドした依存関係をCOPYで最終イメージに持ってきて、不要な開発ツールやキャッシュなどを排除します。
-FROM nvidia/cuda:12.6.3-base-ubuntu20.04
+FROM nvidia/cuda:12.1.1-base-ubuntu20.04
 
 # rootユーザーに切り替え
 USER root
