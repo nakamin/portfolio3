@@ -13,7 +13,7 @@ services:
     ports:
       - "8890:8888"  # JupyterLab (GPU対応)
     volumes:
-      - ./work:/home/jovyan/notebooks  # ローカル作業用ディレクトリ
+      - ./notebooks:/home/jovyan/notebooks  # ローカル作業用ディレクトリ
     command: >
       jupyter-lab --allow-root --ip=0.0.0.0 --port=8888
     networks:
