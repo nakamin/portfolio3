@@ -60,10 +60,10 @@ ENV HOME=/home/jovyan
 COPY --from=builder /usr /usr
 COPY --from=builder $HOME $HOME
 
-# 必要なディレクトリを作成
-RUN mkdir -p $HOME/.local/share/jupyter && \
-    mkdir -p $HOME/work && \
-    chown -R $NB_UID:$NB_GID $HOME
+# 作業ディレクトリの作成と権限設定
+RUN mkdir -p /home/jovyan/work && chown -R $NB_UID:$NB_GID /home/jovyan/work
+RUN mkdir -p /home/jovyan/.local/share/jupyter/runtime && \
+    chown -R $NB_UID:$NB_GID /home/jovyan/.local
 
 # 必要に応じてJupyterのポートを開放
 EXPOSE 8888
