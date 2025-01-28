@@ -21,7 +21,8 @@ sqlalchemy==2.0.37
 psycopg2==2.9.10
 psycopg2-binary==2.9.10
 ipywidgets==8.0.7
-jupyterlab-widgets==3.0.8
+jupyterlab
+pyterlab-widgets==3.0.8
 tqdm==4.66.5
 
 # バージョンを指定すること（同じ環境を再現しやすくなる）

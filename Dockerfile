@@ -23,8 +23,7 @@ RUN apt-get update && apt -y upgrade && \
     rm -rf /var/lib/apt/lists/*
 
 # JupyterLabのインストール
-RUN pip install --upgrade pip && \
-    pip install jupyterlab
+RUN pip install jupyterlab
 
 # requirements.txtをコピー
 COPY requirements.txt /tmp/requirements.txt
@@ -59,7 +58,7 @@ RUN mkdir -p /home/jovyan/work && chown -R $NB_UID:$NB_GID /home/jovyan/work
 EXPOSE 8888
 
 # JupyterLabの起動コマンドを設定
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--LabApp.token=''"]
 
 # デフォルトのユーザーに戻す
 USER $NB_UID
