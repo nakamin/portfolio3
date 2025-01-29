@@ -1,3 +1,4 @@
+# CPU版
 # Stage 1: Build stage
 # ベースイメージを指定
 FROM jupyter/base-notebook:python-3.11 AS builder

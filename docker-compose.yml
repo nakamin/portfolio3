@@ -1,3 +1,4 @@
+# CPU版
 services:
   jupyter:
     build:  # Dockerfile を利用する設定を追加
