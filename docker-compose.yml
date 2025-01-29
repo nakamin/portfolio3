@@ -52,12 +52,8 @@ services:
     container_name: portfolio3-optuna_dashboard
     ports:
       - "8081:8080"  # 外部ポート8081を内部ポート8080にマッピング
-    command:
-      - "optuna-dashboard"
-      - "--storage"
-      - "postgresql+psycopg2://optuna_user:optuna_password@portfolio3-postgres:5432/optuna_db"
-      - "--port"
-      - "8080"
+    command: >
+      optuna-dashboard --storage postgresql+psycopg2://optuna_user:optuna_password@portfolio3-postgres:5432/optuna_db --port 8080
     depends_on:
       - postgres
     restart: always
