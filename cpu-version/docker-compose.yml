@@ -1,25 +1,20 @@
-# GPU版
+# CPU版
 services:
-  gpu-container:
-    container_name: portfolio3-gpu-container
-    build:
+  jupyter:
+    build:  # Dockerfile を利用する設定を追加
       context: .
       dockerfile: Dockerfile
-    runtime: nvidia
-    environment:
-      - NDIVIA_VISIBLE_DEVICES-all
-      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
-      - JUPYTER_ENABLE_LAB=yes
-    restart: unless-stopped
-    stdin_open: true
-    tty: true
+    container_name: portfolio3-jupyter
     ports:
-      - "8890:8888"  # JupyterLab
+      - "8889:8888"  # JupyterLab
     # Docker コンテナとホストマシン（ローカルPC）の間でディレクトリを共有する設定
     volumes:
-      - ./notebooks:/home/jovyan/notebooks
+      - ./notebooks:/home/jovyan/work/notebooks # /home/jovyan/work/notebooksはコンテナ側のパス
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    restart: unless-stopped 
     command: >
-      jupyter lab --allow-root --ip=0.0.0.0 --port=8888 --NotebookApp.token=''
+      jupyter lab --ip=0.0.0.0 --no-browser --NotebookApp.token='' --NotebookApp.password=''
     networks:
       - portfolio-network
 

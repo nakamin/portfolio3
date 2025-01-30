@@ -1,0 +1,29 @@
+# Docker関連のファイルを除外
+*.log
+*.pid
+*.sock
+
+# Docker Composeのオーバーライド設定（ローカル用）
+docker-compose.override.yml
+
+# ビルド時のキャッシュや一時ファイル
+**/tmp/
+*.bak
+
+# Dockerボリュームで作成されるデータ
+volumes/
+data/
+
+# Pythonキャッシュファイル
+__pycache__/
+*.py[cod]
+*.so
+
+# 環境ファイル
+.env
+
+# 仮想環境
+venv/
+
+# Jupyter Notebookチェックポイント
+.ipynb_checkpoints/
