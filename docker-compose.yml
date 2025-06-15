@@ -17,7 +17,7 @@ services:
       - "8890:8888"  # JupyterLab
     # Docker コンテナとホストマシン（ローカルPC）の間でディレクトリを共有する設定
     volumes:
-      - ./notebooks:/home/jovyan/notebooks
+      - ./notebooks:/notebooks
     command: >
       jupyter lab --allow-root --ip=0.0.0.0 --port=8888 --NotebookApp.token=''
     networks:
